@@ -63,18 +63,7 @@ Follow these steps to set up the project locally on your machine.
 ---
 
 ## ☁️ Deployment
-
-### Deploy to Vercel
-
-This project is configured to run seamlessly on Vercel.
-
-1.  Install Vercel CLI or go to the [Vercel Dashboard](https://vercel.com).
-2.  Import this repository.
-3.  Ensure you have a `vercel.json` configuration file if using PHP runtimes (e.g., `vercel-php`).
-4.  Click **Deploy**.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjnckcode%2Fmy-duit)
-
+Just use ur server or Hosting.
 ---
 
 ## 🛣️ Roadmap
