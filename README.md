@@ -13,7 +13,7 @@
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="https://via.placeholder.com/800x400?text=My+Duit+Dashboard" alt="My Duit Dashboard" width="800">
+  <img src="./Screenshot_dashboard.png" alt="My Duit Dashboard" width="800">
 </div>
 
 ---
