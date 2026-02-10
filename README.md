@@ -1,6 +1,6 @@
 # My Duit 💰
 
-![License](https://img.shields.io/github/license/jnckcode/my-duit?color=blue&style=flat-square)
+![License](https://img.shields.io/github/license/jnckcode/my-duit?color=blue&style=flat-square&refresh=1)
 ![Repo Size](https://img.shields.io/github/repo-size/jnckcode/my-duit?style=flat-square)
 ![Last Commit](https://img.shields.io/github/last-commit/jnckcode/my-duit?style=flat-square)
 
