@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Duit - Pengelola Keuangan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay">
+        <div class="card p-4 shadow-lg text-center auth-card">
+            <h4 class="fw-bold mb-3 text-dark"><i class="fas fa-wallet text-primary"></i> MY DUIT</h4>
+            <p class="text-muted small">Masukkan PIN Keamanan</p>
+            <input type="password" id="pin-input" class="form-control form-control-lg text-center mb-3"
+                placeholder="****" maxlength="6">
+            <button class="btn btn-gradient btn-lg w-100" id="btn-login">BUKA PANEL</button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-wallet text-primary"></i>
+            <span class="sidebar-brand">MY DUIT</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-link active" data-page="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-link" data-page="transactions">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Transaksi</span>
+            </a>
+            <a href="#" class="sidebar-link" data-page="savings">
+                <i class="fas fa-piggy-bank"></i>
+                <span>Tabungan</span>
+            </a>
+            <a href="#" class="sidebar-link" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Pengaturan</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-credits">
+            <p class="credit-title">My Duit App</p>
+            <p class="credit-desc">Aplikasi pengelola keuangan personal berbasis web</p>
+        </div>
+
+        <div class="sidebar-footer">
+            <button class="btn btn-light rounded-circle shadow-sm me-2" id="theme-toggle" title="Ganti Tema">
+                <i class="fas fa-adjust"></i>
+            </button>
+            <button class="btn btn-danger rounded-circle shadow-sm" id="btn-logout" title="Keluar">
+                <i class="fas fa-power-off"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <span class="mobile-brand">
+            <i class="fas fa-wallet text-primary me-2"></i>My Duit
+        </span>
+    </header>
+
+    <!-- Overlay untuk mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Content Wrapper -->
+    <main class="main-content">
+
+        <!-- Page: Dashboard -->
+        <section class="page-section active" id="page-dashboard">
+            <div class="page-header">
+                <div>
+                    <h4 class="page-title"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h4>
+                    <p class="page-subtitle">Ringkasan keuangan bulan ini</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="stat-card card-purple">
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Saldo</span>
+                            <h2 id="dash-balance" class="stat-value">Rp 0</h2>
+                            <span class="stat-subtext">Update otomatis</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="stat-card card-teal">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-circle-up"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Pemasukan</span>
+                            <h2 id="dash-income" class="stat-value">Rp 0</h2>
+                            <span class="stat-subtext">Bulan ini</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="stat-card card-red">
+                        <div class="stat-icon">
+                            <i class="fas fa-arrow-circle-down"></i>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Pengeluaran</span>
+                            <h2 id="dash-expense" class="stat-value">Rp 0</h2>
+                            <span class="stat-subtext">Bulan ini</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Widget Row -->
+            <div class="row g-4 mt-2">
+                <!-- Aktivitas Terakhir -->
+                <div class="col-lg-6">
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <h5 class="widget-title"><i class="fas fa-clock me-2"></i>Aktivitas Terakhir</h5>
+                            <button class="btn btn-sm btn-outline-primary" onclick="navigateTo('transactions')">
+                                Lihat Semua
+                            </button>
+                        </div>
+                        <div class="widget-body">
+                            <div class="table-responsive">
+                                <table class="table table-borderless" id="dashboard-recent-table">
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistik Cepat -->
+                <div class="col-lg-6">
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <h5 class="widget-title"><i class="fas fa-bolt me-2"></i>Statistik Cepat</h5>
+                        </div>
+                        <div class="widget-body">
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon bg-purple">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="quick-stat-info">
+                                    <span class="quick-stat-label">Total Transaksi</span>
+                                    <span class="quick-stat-value" id="stat-total">0 transaksi</span>
+                                </div>
+                            </div>
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon bg-teal">
+                                    <i class="fas fa-piggy-bank"></i>
+                                </div>
+                                <div class="quick-stat-info">
+                                    <span class="quick-stat-label">Target Tabungan Aktif</span>
+                                    <span class="quick-stat-value" id="stat-savings">0 target</span>
+                                </div>
+                            </div>
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon bg-blue">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="quick-stat-info">
+                                    <span class="quick-stat-label">Rasio Pengeluaran</span>
+                                    <span class="quick-stat-value" id="stat-ratio">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page: Transaksi -->
+        <section class="page-section" id="page-transactions">
+            <div class="page-header">
+                <div>
+                    <h4 class="page-title"><i class="fas fa-money-bill-wave me-2"></i>Riwayat Transaksi</h4>
+                    <p class="page-subtitle">Kelola seluruh catatan pemasukan & pengeluaran</p>
+                </div>
+                <button class="btn btn-gradient px-4" id="btn-add-transaction">
+                    <i class="fas fa-plus me-1"></i> Transaksi Baru
+                </button>
+            </div>
+            <div class="data-card">
+                <div class="table-responsive">
+                    <table id="main-transaction-table" class="table table-hover w-100 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
+                                <th>Tipe</th>
+                                <th class="text-end">Jumlah</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <nav class="mt-4">
+                    <ul class="pagination justify-content-center" id="transaction-pagination"></ul>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Page: Tabungan -->
+        <section class="page-section" id="page-savings">
+            <div class="page-header">
+                <div>
+                    <h4 class="page-title"><i class="fas fa-piggy-bank me-2"></i>Target Tabungan</h4>
+                    <p class="page-subtitle">Kelola target tabungan Anda</p>
+                </div>
+                <button class="btn btn-gradient px-4" id="btn-add-saving">
+                    <i class="fas fa-plus me-1"></i> Target Baru
+                </button>
+            </div>
+            <div class="row g-4" id="savings-container"></div>
+        </section>
+
+        <!-- Page: Settings -->
+        <section class="page-section" id="page-settings">
+            <div class="page-header">
+                <div>
+                    <h4 class="page-title"><i class="fas fa-cog me-2"></i>Pengaturan</h4>
+                    <p class="page-subtitle">Kelola pengaturan aplikasi</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="widget-card">
+                        <div class="widget-header">
+                            <h5 class="widget-title"><i class="fas fa-key me-2"></i>Ganti PIN Aplikasi</h5>
+                        </div>
+                        <div class="widget-body">
+                            <p class="text-muted small mb-3">PIN digunakan untuk login awal. Masukkan PIN baru yang mudah diingat.</p>
+                            <div class="input-group">
+                                <input type="number" id="new-pin" class="form-control" placeholder="PIN Baru (4-6 Angka)">
+                                <button class="btn btn-gradient" type="button" id="btn-update-pin">Update PIN</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
